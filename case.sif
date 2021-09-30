@@ -1,0 +1,428 @@
+Header
+  CHECK KEYWORDS Warn
+  Mesh DB "." "."
+  Include Path ""
+  Results Directory ""
+End
+
+Simulation
+  Max Output Level = 5
+  Coordinate System = Cartesian
+  Coordinate Mapping(3) = 1 2 3
+  Simulation Type = Transient
+  Steady State Max Iterations = 100
+  Output Intervals = size 19; 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  Timestepping Method = BDF
+  BDF Order = 3
+  Timestep intervals = size 19; 1 1 1 9 9 9 10 9 9 9 9 9 9 4 7 4 7 4 7
+  Timestep Sizes = size 19; 1e-3 0.009 0.09 0.1 1 10 1e-8 1e-7 1e-6 1e-5 1e-4 1e-3 0.01 0.05 0.1 0.5 1 5 10
+  Coordinate Scaling = 1
+  Solver Input File = case.sif
+  Post File = case.vtu
+End
+
+Constants
+  Gravity(4) = 0 -1 0 9820
+  Stefan Boltzmann = 5.67e-08
+  Permittivity of Vacuum = 8.8542e-9
+  Boltzmann Constant = 1.3807e-17
+  Unit Charge = 1.602e-13
+End
+
+Body 1
+  Target Bodies(1) = 1
+  Name = "Body 1"
+  Equation = 2
+  Material = 1
+  Initial condition = 1
+End
+
+Body 2
+  Target Bodies(1) = 2
+  Name = "Body 2"
+  Equation = 1
+  Material = 2
+  Body Force = 1
+  Initial condition = 1
+End
+
+Body 3
+  Target Bodies(1) = 3
+  Name = "Body 3"
+  Equation = 1
+  Material = 10
+  Body Force = 1
+  Initial condition = 1
+End
+
+Body 4
+  Target Bodies(1) = 4
+  Name = "Body 4"
+  Equation = 1
+  Material = 4
+  Body Force = 1
+  Initial condition = 1
+End
+
+Body 5
+  Target Bodies(1) = 5
+  Name = "Body 5"
+  Equation = 1
+  Material = 5
+  Body Force = 1
+  Initial condition = 1
+End
+
+Body 6
+  Target Bodies(1) = 6
+  Name = "Body 6"
+  Equation = 1
+  Material = 6
+  Body Force = 1
+  Initial condition = 1
+End
+
+Body 7
+  Target Bodies(1) = 7
+  Name = "Body 7"
+  Equation = 1
+  Material = 7
+  Body Force = 1
+  Initial condition = 1
+End
+
+Body 8
+  Target Bodies(1) = 8
+  Name = "Body 8"
+  Equation = 1
+  Material = 8
+  Body Force = 1
+  Initial condition = 1
+End
+
+Body 9
+  Target Bodies(1) = 9
+  Name = "Body 9"
+  Equation = 1
+  Material = 9
+  Body Force = 1
+  Initial condition = 1
+End
+
+Body 10
+  Target Bodies(1) = 10
+  Name = "Body 10"
+  Equation = 1
+  Material = 3
+  Body Force = 1
+  Initial condition = 1
+End
+
+Body 11
+  Target Bodies(1) = 11
+  Name = "Body 11"
+  Equation = 1
+  Material = 8
+  Body Force = 1
+  Initial condition = 1
+End
+
+Solver 2
+  Equation = Heat Equation
+  Procedure = "HeatSolve" "HeatSolver"
+  Variable = Temperature
+  Exec Solver = Always
+  Stabilize = True
+  Bubbles = False
+  Lumped Mass Matrix = False
+  Optimize Bandwidth = True
+  Steady State Convergence Tolerance = 1.0e-7
+  Nonlinear System Convergence Tolerance = 1.0e-7
+  Nonlinear System Max Iterations = 20
+  Nonlinear System Newton After Iterations = 3
+  Nonlinear System Newton After Tolerance = 1.0e-3
+  Nonlinear System Relaxation Factor = 1
+  Linear System Solver = Iterative
+  Linear System Iterative Method = BiCGStab
+  Linear System Max Iterations = 500
+  Linear System Convergence Tolerance = 1.0e-10
+  BiCGstabl polynomial degree = 2
+  Linear System Preconditioning = ILU2
+  Linear System ILUT Tolerance = 1.0e-3
+  Linear System Abort Not Converged = False
+  Linear System Residual Output = 10
+  Linear System Precondition Recompute = 1
+End
+
+Solver 4
+  Equation = SaveLine
+  Procedure = "SaveData" "SaveLine"
+  Polyline Divisions = 12
+  Filename = outline_m1_30W.csv
+  Polyline Coordinates = size(2,3);0 0 2.41 2.4 2.4 2.41
+  Exec Solver = After Timestep
+  Stabilize = True
+  Bubbles = False
+  Lumped Mass Matrix = False
+  Optimize Bandwidth = True
+  Steady State Convergence Tolerance = 1.0e-5
+  Nonlinear System Convergence Tolerance = 1.0e-7
+  Nonlinear System Max Iterations = 20
+  Nonlinear System Newton After Iterations = 3
+  Nonlinear System Newton After Tolerance = 1.0e-3
+  Nonlinear System Relaxation Factor = 1
+  Linear System Solver = Iterative
+  Linear System Iterative Method = BiCGStab
+  Linear System Max Iterations = 500
+  Linear System Convergence Tolerance = 1.0e-10
+  BiCGstabl polynomial degree = 2
+  Linear System Preconditioning = ILU0
+  Linear System ILUT Tolerance = 1.0e-3
+  Linear System Abort Not Converged = False
+  Linear System Residual Output = 10
+  Linear System Precondition Recompute = 1
+End
+
+Solver 1
+  Equation = Static Current Conduction
+  Variable = Potential
+  Calculate Joule Heating = True
+  Procedure = "StatCurrentSolve_2" "StatCurrentSolver"
+  Calculate Volume Current = True
+  Exec Solver = Always
+  Stabilize = True
+  Bubbles = False
+  Lumped Mass Matrix = False
+  Optimize Bandwidth = True
+  Steady State Convergence Tolerance = 1.0e-6
+  Nonlinear System Convergence Tolerance = 1.0e-6
+  Nonlinear System Max Iterations = 20
+  Nonlinear System Newton After Iterations = 3
+  Nonlinear System Newton After Tolerance = 1.0e-3
+  Nonlinear System Relaxation Factor = 1
+  Linear System Solver = Iterative
+  Linear System Iterative Method = BiCGStab
+  Linear System Max Iterations = 200
+  Linear System Convergence Tolerance = 1.0e-10
+  BiCGstabl polynomial degree = 2
+  Linear System Preconditioning = ILU4
+  Linear System ILUT Tolerance = 1.0e-3
+  Linear System Abort Not Converged = False
+  Linear System Residual Output = 10
+  Linear System Precondition Recompute = 1
+End
+
+Solver 3
+  Equation = SaveScalars
+  Variable 2 = potential
+  Variable 1 = time
+  Variable 4 = joule heating
+  Procedure = "SaveData" "SaveScalars"
+  Variable 3 = temperature
+  Operator 3 = max
+  Filename = out_m1_Rth30W.csv
+  Operator 2 = max
+  Exec Solver = After Timestep
+End
+
+Equation 1
+  Name = "Equation 1"
+  Active Solvers(4) = 2 4 1 3
+End
+
+Equation 2
+  Name = "Equation 2"
+  Active Solvers(1) = 2
+End
+
+Material 1
+  Name = "COH4000"
+  Heat Capacity = 1550e9
+  Youngs modulus = 1000
+  Reference Temperature = 298.15
+  Heat expansion Coefficient = 1e-4
+  Heat Conductivity = 6500
+  Poisson ratio = 0.3
+  Density = 0.98e-9
+  Electric Conductivity = 1e-6
+End
+
+Material 2
+  Name = "CM-15"
+  Heat expansion Coefficient = 6.8e-6
+  Youngs modulus = 280000
+  Density = 10.01e-9
+  Poisson ratio = 0.3
+  Heat Conductivity = 108000
+  Electric Conductivity = 1.89e10
+  Heat Capacity = 280e9
+  Reference Temperature = 298.15
+End
+
+Material 3
+  Name = "Air"
+  Heat expansion Coefficient = 17.1e-6
+  Heat Capacity = 380e9
+  Electric Conductivity = 4.0e-9
+  Youngs modulus = 100000
+  Poisson ratio = 0.3
+  Reference Temperature = 298.15
+  Density = 8.93e-9
+  Heat Conductivity = 24
+End
+
+Material 4
+  Name = "Ag"
+  Heat expansion Coefficient = 18.9e-6
+  Heat Capacity = 350e9
+  Poisson ratio = 0.37
+  Reference Temperature = 298.15
+  Density = 10.5e-9
+  Youngs modulus = 83000
+  Electric Conductivity = 4.3e10
+  Heat Conductivity = 70000
+End
+
+Material 5
+  Name = "SiC"
+  Heat expansion Coefficient = 3.1e-6
+  Poisson ratio = 0.18
+  Reference Temperature = 298.15
+  Youngs modulus = 221000
+  Heat Capacity = 714e9
+  Electric Conductivity = 5.0e6
+  Density = 3.2e-9
+  Heat Conductivity = 380000
+End
+
+Material 6
+  Name = "drift"
+  Poisson ratio = 0.18
+  Heat Capacity = 714e9
+  Reference Temperature = 298.15
+  Youngs modulus = 221000
+  Heat Conductivity = 380000
+  Heat expansion Coefficient = 3.1e-6
+  Density = 3.2e-9
+  Electric Conductivity = Variable Temperature
+  REAL MATC "1.0e4/24.01/0.012681889/(1+0.005798228*(tx-300.15)+2.72658E-05*(tx-300.15)*(tx-300.15))"
+End
+
+Material 7
+  Name = "junction"
+  Heat Capacity = 714e9
+$ function uramp(X){\
+   if(X(0)>0)   _uramp=X(0);   else   _uramp=0\
+}
+
+$ function is(X,N,kb,q) {\
+   T0=298.15;\
+   is0=1.5e-9;\
+   xti=2.675;\
+   Eg=1.2;\
+   _is=is0*pow(X(0)/T0,xti/N)*exp(q*Eg/N/kb*(1/T0-1/X(0)))\
+}
+
+$ function fsigma(X)  {\
+   N=1.015;\
+   kb=1.3807e-17;\
+   q=1.602e-13;\
+   d=1.0e-3;\
+   S=24.01;\
+   _fsigma = d*uramp(-X(1))/(kb*N*X(0)/q*ln(S*uramp(-X(1))/is(X,N,kb,q)+1)+1e-12)\
+}
+
+$ function vfsigma(X)  {\
+   V0=0.83064;\
+   tV1=-1.6810e-3;\
+   d=1.0e-3;\
+   _vfsigma = d*uramp(-X(1))/(V0+tV1*(X(0)-273.15))\
+}
+  Poisson ratio = 0.18
+  Heat expansion Coefficient = 3.1e-6
+  Density = 3.2e-9
+  Youngs modulus = 221000
+  Electric Conductivity = Variable "Temperature, Volume Current 3"
+   Real MATC "vfsigma(tx)"
+  Reference Temperature = 298.15
+  Heat Conductivity = 380000
+End
+
+Material 8
+  Name = "Al"
+  Heat Capacity = 900e9
+  Youngs modulus = 80000
+  Reference Temperature = 298.15
+  Heat expansion Coefficient = 26.5e-6
+  Density = 2.7e-9
+  Poisson ratio = 0.3
+  Heat Conductivity = 238000
+  Electric Conductivity = 3.4e10
+End
+
+Material 9
+  Name = "slide"
+  Youngs modulus = 800
+  Heat Capacity = 900e9
+   $Er=0.000008;\
+  Reference Temperature = 298.15
+  Electric Conductivity = real MATC "3.4e10 * Er"
+  Density = 2.7e-9
+  Heat Conductivity = real MATC "238000.0 * Er"
+  Heat expansion Coefficient = 26.5e-6
+  Poisson ratio = 0.3
+End
+
+Material 10
+  Name = "Cu"
+  Reference Temperature = 298.15
+  Youngs modulus = 98000
+  Heat Capacity = 380e9
+  Density = 8.93e-9
+  Heat expansion Coefficient = 17.5e-6
+  Electric Conductivity = 4.0e10
+  Heat Conductivity = 400000
+  Poisson ratio = 0.3
+End
+
+Body Force 1
+  Name = "BodyForce 1"
+  Joule Heat = True
+End
+
+Initial Condition 1
+  Name = "InitialCondition 1"
+  Temperature = 298
+End
+
+Boundary Condition 1
+  Target Boundaries(1) = 12 
+  Name = "anode"
+  External Temperature = 298.15
+  Heat Transfer Coefficient = 3000
+  Current Density = Variable time
+real
+     0     10000
+    0.1    20000
+     1     22460000
+  100     22460000
+ 100.0000001 20000
+ 900     20000
+end
+End
+
+Boundary Condition 2
+  Target Boundaries(1) = 13 
+  Name = "cathode"
+  Potential = 0.0
+  Heat Transfer Coefficient = 3000
+  External Temperature = 298.15
+End
+
+Boundary Condition 3
+  Target Boundaries(1) = 14 
+  Name = "cool"
+  Heat Transfer Coefficient = 4000
+  External Temperature = 298.15
+  Potential = 0.0
+End
