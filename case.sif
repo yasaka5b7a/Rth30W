@@ -364,7 +364,9 @@ Material 9
   Name = "slide"
   Youngs modulus = 800
   Heat Capacity = 900e9
+  
    $Er=0.000008;\
+   
   Reference Temperature = 298.15
   Electric Conductivity = real MATC "3.4e10 * Er"
   Density = 2.7e-9
